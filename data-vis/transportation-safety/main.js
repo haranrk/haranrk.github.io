@@ -1,10 +1,10 @@
 var w = 1400;
-var margin = {"left": 70, "right": 50, "top":30, "bottom":70};
+var margin = {"left": 80, "right": 50, "top":30, "bottom":70};
 var graphHeight = 300;
 var paddingGraphButtons = 20;
-var buttonsHeight = 50;
+var buttonsHeight = 35;
 var h = margin.top+graphHeight+paddingGraphButtons+buttonsHeight+margin.bottom;
-var buttonsPaddingRight = 800;
+var buttonsPaddingRight = 900;
 var buttonsPaddingInner = 0.1;
 
 var svg = d3.select("body")
@@ -23,7 +23,7 @@ var dataset = {
     "Bicycle":[ 170, 	550 ,	44.6*multiplier],
     "Motorcycle":[1640,4840,108.9*multiplier],
     "Skydiving":[7500,75000,1],
-    "Space Shuttle":[17000000,70000,6.6*multiplier ],
+    "Shuttle":[17000000,70000,6.6*multiplier ],
     "Paragliding":[ 1,	970, 1]
 };
 var keys = Object.keys(dataset);
@@ -47,10 +47,10 @@ var yScale = d3.scaleBand()
                 .paddingInner(0.1);
 
 var xScale = d3.scaleLog()
-                .range([0, w-margin.right]);
+                .range([0, w-margin.left-margin.right]);
 
 
-var currentViewState = viewStates.Hours;
+var currentViewState = viewStates.Kms;
 
 function setXScale(viewState){
     xScale.domain([1, d3.max(values, function(d){ return 0+d[viewState]})]);
@@ -108,12 +108,15 @@ modeButtons.append("text")
             .text(function(d){ return d;});
             
 
-svg.append("g")
-    .attr("id", "graph")
-    .selectAll("rect")
+var graph = svg.append("g").attr("id", "graph");
+
+graph.selectAll("rect")
     .data(values)
     .enter()
     .append("rect")    
+    .attr("id", function(d,i){
+        return keys[i];
+    })
     .classed("bars", true)
     .attr("width", function(d){
         return xScale(d[currentViewState]);
@@ -127,15 +130,56 @@ svg.append("g")
     .attr("y", function(d,i){
         return yScale(keys[i]);
     })
-    .attr("fill", "url(#gradient)")
-    .append("title")
-    .text(function(d,i){ return keys[i];});
+    .on("mouseover", function(){
+        thisId = d3.select(this).attr("id");
+        d3.select("#text-"+thisId)
+            .transition()
+            .duration(400)
+            .attr("opacity", 1);
+    })
+    .on("mouseout", function(){
+        thisId = d3.select(this).attr("id");
+        d3.select("#text-"+thisId)
+            .transition()
+            .delay(100)
+            .duration(1000)
+            .attr("opacity", 0);
+    })
+    .attr("fill", "url(#gradient)");
+
+graph.selectAll("text")
+    .data(values)
+    .enter()
+    .append("text")
+
+function setBarText(){
+    graph.selectAll("text")
+        .attr("id", function(d,i){
+            return "text-"+keys[i];
+        })
+        .classed("bar-labels", true)
+        .text(function(d) { return d3.format(",")(d[currentViewState]) + " deaths per billion " + viewStatesList[currentViewState].toLowerCase() + " travelled";})
+        .attr("x", function(d){
+            //return margin.left + xScale(d[currentViewState])-10;
+            return margin.left + 10;
+        })
+        .attr("y", function(d,i){
+            return yScale.bandwidth()+ yScale(keys[i])-7;
+        })
+        .attr("opacity", 0);
+}
+     
+setBarText();
+    //.append("title")
+    //.text(function(d,i){ return keys[i];});
 
 var yAxis = d3.axisLeft()
                 .scale(yScale)
                 .ticks(5);
 
 var xAxis = d3.axisTop()
+                .ticks(4)
+                .tickFormat(d3.format(".0s"))
                 .scale(xScale);
 
 svg.append("g")
@@ -177,6 +221,7 @@ function changeMode(d){
     stopGrad.transition()
             .duration(1000)
             .attr("stop-color", barColors[currentViewState][1]);
+    setBarText();
 }
     
 

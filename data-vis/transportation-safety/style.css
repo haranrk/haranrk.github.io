@@ -1,6 +1,19 @@
 body {
     background-color: #303030
 }
+#graph-description p {
+    font-family: Helvetica, sans-serif;
+    font-size: 15px;
+    color: white;
+}
+
+a {
+    color: white;
+    text-decoration: underline;
+}
+a:hover {
+    color: white;
+}
 svg {
     display: block;
   margin-left: auto;
@@ -39,4 +52,12 @@ svg {
 
 .selected text{
     fill:black;
+}
+
+text.bar-labels {
+    /*text-anchor: end;*/
+    font-size: 12px;
+    fill: white;
+    font-family: Helvetica, sans-serif;
+    pointer-events: none;
 }
