@@ -1,10 +1,10 @@
-var w = 1071;
+var w = 1200;
 var margin = {"left": 75, "right": 70, "top":30, "bottom":20};
 var graphHeight = 300;
 var paddingGraphButtons = 20;
 var buttonsHeight = 35;
 var h = margin.top+graphHeight+paddingGraphButtons+buttonsHeight+margin.bottom;
-var buttonsPaddingRight = 600;
+var buttonsPaddingRight = 800;
 var buttonsPaddingInner = 0.1;
 
 var svg = d3.select("figure")
