@@ -1,16 +1,20 @@
-var w = 1400;
-var margin = {"left": 80, "right": 50, "top":30, "bottom":70};
+var w = 1071;
+var margin = {"left": 75, "right": 70, "top":30, "bottom":20};
 var graphHeight = 300;
 var paddingGraphButtons = 20;
 var buttonsHeight = 35;
 var h = margin.top+graphHeight+paddingGraphButtons+buttonsHeight+margin.bottom;
-var buttonsPaddingRight = 900;
+var buttonsPaddingRight = 600;
 var buttonsPaddingInner = 0.1;
 
-var svg = d3.select("body")
+var svg = d3.select("figure")
             .append("svg")
             .attr("width", w)
             .attr("height", h);
+svg.append("rect")
+    .attr("fill","#303030")
+    .attr("width", w)
+    .attr("height", h);
 var multiplier = 1000;
 var dataset = {
     "Bus":[ 	4.3, 	11.1, 	0.4*multiplier],
@@ -47,7 +51,7 @@ var yScale = d3.scaleBand()
                 .paddingInner(0.1);
 
 var xScale = d3.scaleLog()
-                .range([0, w-margin.left-margin.right]);
+                .range([margin.left, w-margin.right-margin.left]);
 
 
 var currentViewState = viewStates.Kms;
@@ -74,6 +78,7 @@ var stopGrad = gradients.append("stop")
 var buttonScale = d3.scaleBand()
                     .domain(viewStatesList)
                     .rangeRound([margin.left, w-margin.right-buttonsPaddingRight])
+                    //.rangeRound([margin.left, w-margin.right])
                     .paddingInner(buttonsPaddingInner);
 
 var modeButtons = svg.selectAll("g.mode-buttons")
