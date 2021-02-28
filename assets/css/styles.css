@@ -19,6 +19,7 @@
   box-shadow: 20px 20px 22px rgba(0,0,0,0.2);
   font-family: 'Poppins',sans-serif;
   z-index: 100;
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .card-img {
@@ -48,13 +49,6 @@
   position: absolute;
   left: 0;
   right: 0;
-}
-
-@media (max-width: 400px) {
-  .card {
-    height: 70%;
-    width: 70%;
-  }
 }
 
 .desc {
@@ -91,6 +85,12 @@ body {
   background: #161616;
 }
 
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
 section::before {
   content: '';
   position: absolute;
@@ -103,7 +103,7 @@ section::before {
   animation: animate 5s ease-in-out infinite;
   margin-bottom: 75px;
   margin-left: 50px;
-  background: linear-gradient(#828DED,#1F31D6);
+  background: linear-gradient(#FF99AC,#FF4365);
 }
 
 section::after {
@@ -119,7 +119,7 @@ section::after {
   animation-delay: -2.5s;
   margin-top: 75px;
   margin-right: 50px;
-  background: linear-gradient(#FF99AC,#FF4365);
+  background: linear-gradient(#828DED,#1F31D6);
 }
 
 @keyframes animate {
