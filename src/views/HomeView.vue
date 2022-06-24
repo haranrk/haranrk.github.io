@@ -2,4 +2,5 @@
 
 <template>
   <div>Test content</div>
+  <div>More content</div>
 </template>
