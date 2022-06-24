@@ -9,8 +9,10 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "vite-plugin-windicss": "^1.8.4",
     "vue": "^3.2.31",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "windicss": "^3.5.5"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",
