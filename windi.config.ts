@@ -1,9 +1,17 @@
 import { defineConfig } from "windicss/helpers";
 import formsPlugin from "windicss/plugin/forms";
 
+const dynamicallyUsedColors = [
+  "red-500",
+  "blue-500",
+  "orange-500",
+  "teal-500",
+  "blacj",
+];
+
 export default defineConfig({
   darkMode: "class",
-  safelist: "p-3 p-4 p-5",
+  safelist: [dynamicallyUsedColors.map((color) => `text-${color}`)],
   theme: {
     extend: {
       colors: {
