@@ -1,7 +1,7 @@
 <template>
   <a
     :href="link"
-    :class="`text-${windiColor} underline decoration-wavy decoration${windiColor} decoration-2`"
+    :class="`text-${windiColor} underline decoration-${windiColor} decoration-5 hover:bg-${windiColor} hover:text-white `"
     >{{ name }}</a
   >
 </template>

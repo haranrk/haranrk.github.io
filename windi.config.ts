@@ -6,12 +6,17 @@ const dynamicallyUsedColors = [
   "blue-500",
   "orange-500",
   "teal-500",
-  "blacj",
+  "black",
 ];
 
 export default defineConfig({
   darkMode: "class",
-  safelist: [dynamicallyUsedColors.map((color) => `text-${color}`)],
+  safelist: [
+    dynamicallyUsedColors.map((color) => `text-${color}`),
+    dynamicallyUsedColors.map((color) => `bg-${color}`),
+    dynamicallyUsedColors.map((color) => `hover:bg-${color}`),
+    dynamicallyUsedColors.map((color) => `decoration-${color}`),
+  ],
   theme: {
     extend: {
       colors: {
