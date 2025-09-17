@@ -1,0 +1,67 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    
+    <title>Haran Rajkumar</title>
+    <description>Profile website of Haran Rajkumar</description>
+    <link>//localhost:1313/</link>
+    
+    <language>en</language>
+    <copyright>Copyright 2025, Calvin Tran</copyright>
+    <lastBuildDate>Wed, 17 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <generator>Hugo - gohugo.io</generator>
+    <docs>http://cyber.harvard.edu/rss/rss.html</docs>
+    <atom:link href="//localhost:1313//atom.xml" rel="self" type="application/atom+xml"/>
+    
+    
+    <item>
+      <title>Local only golinks</title>
+      <link>//localhost:1313/posts/golinks/</link>
+      <description>&lt;p&gt;For the uninitiated, a golink (sometimes written as Go link) is a short, memorable URL that redirects to a longer, less convenient one.
+Examples&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;go goog -&amp;gt; https://google.com
+go linear/3 -&amp;gt; https://linear.app/acme/issue/ACME-3
+go pr/repo/1 -&amp;gt; https://github.com/acme/repo/pull/1
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;These are popular in enterprise settings because they offer the following benefits:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Easier to remember (go/sprint vs. a long URL).&lt;/li&gt;
+&lt;li&gt;Shareable (you can just say &amp;ldquo;go/design-doc&amp;rdquo; in a meeting).&lt;/li&gt;
+&lt;li&gt;Consistent across teams (everyone uses the same keyword, not individual bookmarks).&lt;/li&gt;
+&lt;li&gt;Templating (use variables like go/pr/{repo}/{id} for dynamic redirects)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;introducing-golinks&#34;&gt;Introducing Golinks&lt;/h2&gt;
+&lt;p&gt;Many enterprise software solutions provide this feature (like &lt;a href=&#34;https://docs.glean.com/user-guide/knowledge/go-links/how-go-links-work&#34;&gt;glean&lt;/a&gt;, &lt;a href=&#34;https://www.golinks.io/&#34;&gt;golinks corporate&lt;/a&gt;). However, I wanted a simple lightweight service that is a) easy to setup b) free c) runs completely locally . So, I implemented &lt;a href=&#34;https://github.com/haranrk/golinks&#34;&gt;one&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;setup&#34;&gt;Setup&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;bash -c &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/haranrk/golinks/master/install.sh)&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;That&amp;rsquo;s all!&lt;/p&gt;
+&lt;p&gt;The above script does the following&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Installs the Python package using uv&lt;/li&gt;
+&lt;li&gt;Adds &lt;code&gt;127.0.0.1 go&lt;/code&gt; to your &lt;code&gt;/etc/hosts&lt;/code&gt; file (with sudo permission)&lt;/li&gt;
+&lt;li&gt;Sets up port forwarding from port 80 to 8888 using pfctl (macOS) or iptables (Linux), so you can use &lt;code&gt;go/shortcut&lt;/code&gt; instead of &lt;code&gt;go:8888/shortcut&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Sets up a LaunchAgent (macOS) or systemd service (Linux) to run the server at startup&lt;/li&gt;
+&lt;li&gt;Starts the golinks server immediately on port 8888&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Once installed, golinks runs a lightweight HTTP server that reads shortcuts from a JSON config file at &lt;code&gt;~/.golinks/config.json&lt;/code&gt; and redirects &lt;code&gt;http://go/shortcut&lt;/code&gt; to the configured destination URL. The config file is hot-reloaded, so you can add new shortcuts without restarting the server.&lt;/p&gt;
+&lt;h3 id=&#34;configuration-example&#34;&gt;Configuration Example&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#111&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;github&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#d88200&#34;&gt;&amp;#34;https://github.com&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;mail&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#d88200&#34;&gt;&amp;#34;https://gmail.com&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;calendar&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#d88200&#34;&gt;&amp;#34;https://calendar.google.com&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;docs&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#d88200&#34;&gt;&amp;#34;https://docs.google.com&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;drive&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#d88200&#34;&gt;&amp;#34;https://drive.google.com&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;repo&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#111&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;template_url&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#d88200&#34;&gt;&amp;#34;https://github.com/{1}/{2}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;defaults&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#111&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#d88200&#34;&gt;&amp;#34;haranrk&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;2&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#d88200&#34;&gt;&amp;#34;golinks&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#111&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#111&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#111&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+      <author>Haran Rajkumar</author>
+      <guid>//localhost:1313/posts/golinks/</guid>
+      <pubDate>Wed, 17 Sep 2025 00:00:00 +0000</pubDate>
+    </item>
+    
+  </channel>
+</rss>
