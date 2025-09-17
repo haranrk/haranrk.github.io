@@ -7,9 +7,10 @@ tags:
 ---
 
 
-For the uninitiated, a golink (sometimes written as Go link) is a short, memorable URL that redirects to a longer, less convenient one. 
-Examples
+For the uninitiated, asdsdsdsd golink (sometimes written as Go link) is a short, memorable URL that redirects to a longer, less convenient one. 
+
 ```
+# Examples
 go goog -> https://google.com
 go linear/3 -> https://linear.app/acme/issue/ACME-3
 go pr/repo/1 -> https://github.com/acme/repo/pull/1
